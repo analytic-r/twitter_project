@@ -1,7 +1,7 @@
 # Setup the environment
-setwd("C:/Attila/Documents/_education/R/sentiment/")
-word_list_long <<- read.csv("wordwithStrength.csv", sep = ";", header = FALSE)
-word_list_short <<- read.csv("pn_words.csv", sep = ";", header = FALSE)
+# setwd("C:/Attila/analytic-r-website/twitter/")
+word_list_long <<- read.csv("./_support/wordwithStrength.csv", sep = ";", header = FALSE)
+word_list_short <<- read.csv("./_support/pn_words.csv", sep = ";", header = FALSE)
     
 # Load the required libraries
 library(twitteR) # setup_twitter_oauth, searchTwitter
@@ -11,10 +11,10 @@ library(plyr) # ddply
 library(reshape2) # melt
 
 # Provide one's credentials to access tweets
-setup_twitter_oauth(consumer_key ='5Px1UZqp7V2wqfZYFedtts9zX',
-                    consumer_secret ='omDjkA42UrZEKI5lyZnid9blEgBy2GfHD9SUngHuroGXobc447',
-                    access_token='3050053143-OMnqKtOVNcWfTcUGKphM1QxdBWD4G5qCttBKzy4', 
-                    access_secret='NVLffRKq2hICTYaz6UJf2TLZbiiY7neqA1O4mt8gkigwT')
+setup_twitter_oauth(consumer_key ='xxxxxxxxxxxxxxx',
+                    consumer_secret ='xxxxxxxxxxxxxxxxx',
+                    access_token='xxxxxxxxxxx-xxxxxxxxxxxx', 
+                    access_secret='xxxxxxxxxxxxxxxxxxxxxx')
 
 # Look up tweets
 tweets <- searchTwitter(searchString = "daredevil", lang="en",
@@ -125,16 +125,7 @@ map_points <- geocode(locations)
 map_points <- na.omit(map_points)
 
 
-
-# Solution One to plot the twitters locations
-newmap <- getMap(resolution = "low")
-plot(newmap, xlim = c(-32, 81), ylim = c(-32, 81), asp = 1)
-points(europe.limits, cex = 1, col = "dark red")
-
-plot(newmap, xlim = range(europe.limits$lon), ylim = range(europe.limits$lat), asp = 1)
-points(europe.limits, cex = 1, col = "dark red", pch = 1)
-
-# Solution Two to plot the twitters locations
+# Solution to plot the twitters locations
 map <- get_map(location = "america", zoom = 3, maptype = "satellite")
 ggmap(map) + geom_point(aes(x = lon, y = lat, size = 2, colour = "red", alpha = .5), data = map_points)
 
